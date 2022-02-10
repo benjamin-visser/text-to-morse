@@ -1,4 +1,7 @@
-from morsekeys import morse_dict
+import json
+
+with open("morse-dictionary.json", "r") as f:
+    morse_dict = json.load(f)
 
 
 class MorseCoder:
@@ -8,7 +11,6 @@ class MorseCoder:
         self.char_mappings = {val: key for key, val in morse_dict.items()}
 
     def encode(self, text):
-
         word_list = text.split()
         nested_chars = [list(word.upper()) for word in word_list]
         morse_chars = [[self.morse_mappings[char] for char in word] for word in nested_chars]
@@ -18,7 +20,6 @@ class MorseCoder:
         return morse_text
 
     def decode(self, code):
-
         code_list = code.split("   ")
         nested_codes = [code.split() for code in code_list]
         text_chars = [[self.char_mappings[char] for char in code] for code in nested_codes]

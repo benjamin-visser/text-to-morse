@@ -1,5 +1,8 @@
-from morsekeys import morse_dict
+import json
 from morse_coder import MorseCoder
+
+with open("morse-dictionary.json", "r") as f:
+    morse_dict = json.load(f)
 
 ALPHABET_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
                  "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
