@@ -1,15 +1,21 @@
-from morsekeys import morse_dict
+from morse_coder import MorseCoder
 
-text = input("Write something you want to convert: ").strip()
 
-word_list = text.split()
+if __name__ == "__main__":
 
-nested_chars = [list(word.upper()) for word in word_list]
+    coder = MorseCoder()
 
-morse_chars = [[morse_dict[char] for char in word] for word in nested_chars]
+    while True:
+        print("Press any key + enter to quit")
+        coding = input("Would you like to encode or decode Morse? (encode/decode): ")
 
-morse_words = [" ".join(word) for word in morse_chars]
+        if coding.lower() == "encode":
+            text = input("Write something you'd like to convert to morse code: ").strip()
+            print(coder.encode(text))
 
-morse_text = "   ".join(morse_words)
+        elif coding.lower() == "decode":
+            text = input("Write some code you'd like to convert to text: ").strip()
+            print(coder.decode(text))
 
-print(morse_text)
+        else:
+            break
