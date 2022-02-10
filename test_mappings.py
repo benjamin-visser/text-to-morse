@@ -1,8 +1,6 @@
 import json
 from morse_coder import MorseCoder
 
-with open("morse-dictionary.json", "r") as f:
-    morse_dict = json.load(f)
 
 ALPHABET_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
                  "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -55,8 +53,12 @@ EXAMPLE_ENCODINGS = [
     )
 ]
 
+with open("morse-dictionary.json", "r") as f:
+    morse_dict = json.load(f)
+
 
 class TestMorseKeys:
+    """For testing dictionaries used in translation"""
 
     def test_alphabet(self):
         """Test that all alphabet characters have a Morse code mapping"""
@@ -79,6 +81,7 @@ class TestMorseKeys:
 
 
 class TestCoding:
+    """For testing translation accuracy"""
 
     def test_encoding(self):
         """Test that string is encoded to expected Morse code"""
