@@ -23,3 +23,7 @@ def test_numerals():
 def test_punctuation():
     for char in punctuation_list:
         print(morse_dict[char])
+
+
+def test_unique():
+    assert len(set(morse_dict.keys())) == len(set(morse_dict.values()))
