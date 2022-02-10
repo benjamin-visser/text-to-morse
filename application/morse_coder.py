@@ -1,6 +1,6 @@
 import json
 
-with open("morse-dictionary.json", "r") as f:
+with open("application/morse-dictionary.json", "r") as f:
     morse_dict = json.load(f)
 
 

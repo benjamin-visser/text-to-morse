@@ -1,5 +1,5 @@
 import json
-from morse_coder import MorseCoder
+from application.morse_coder import MorseCoder
 
 
 ALPHABET_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
@@ -53,7 +53,7 @@ EXAMPLE_ENCODINGS = [
     )
 ]
 
-with open("morse-dictionary.json", "r") as f:
+with open("application/morse-dictionary.json", "r") as f:
     morse_dict = json.load(f)
 
 
