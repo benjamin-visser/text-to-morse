@@ -12,3 +12,4 @@ morse_words = [" ".join(word) for word in morse_chars]
 
 morse_text = "   ".join(morse_words)
 
+print(morse_text)
