@@ -7,7 +7,7 @@ if __name__ == "__main__":
 
     while True:
         print("Press any key + enter to quit")
-        coding = input("Would you like to encode or decode Morse? (encode/decode): ")
+        coding = input("Would you like to encode or decode Morse? (encode/decode): ").strip()
 
         if coding.lower() == "encode":
             text = input("Write something you'd like to convert to morse code: ").strip()
