@@ -1,0 +1,11 @@
+body {
+    background-image: url("images/morse-background.png");
+}
+
+h1 {
+    color: #F0F0F0;
+}
+
+.container {
+    margin-top: 20%
+}

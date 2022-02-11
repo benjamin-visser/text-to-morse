@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect
+from flask_bootstrap import Bootstrap
 from morse_coder import MorseCoder
 
 app = Flask(__name__)
+Bootstrap(app)
 coder = MorseCoder()
 
 
