@@ -1,6 +1,5 @@
 from morse_coder import MorseCoder
 
-
 if __name__ == "__main__":
 
     coder = MorseCoder()
