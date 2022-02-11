@@ -4,8 +4,21 @@ body {
 
 h1 {
     color: #F0F0F0;
+    font-family: 'Comforter Brush', cursive;
+    font-size: 100px;
+    margin: 10% auto;
 }
 
-.container {
-    margin-top: 20%
+.form-cont {
+    padding: 50px
+    background-color: #21325E;
+    border-radius: 25px;
+}
+
+.text-box {
+    width: 50%;
+    height: 300px;
+    border-radius: 25px;
+    background-color: #F0F0F0;
+    border-width: 0;
 }
