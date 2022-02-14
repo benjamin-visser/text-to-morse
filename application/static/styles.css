@@ -1,5 +1,17 @@
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
 body {
     background-image: url("images/morse-background.png");
+    background-position: 0px 0px;
+    background-repeat: repeat-x;
+    animation: animatedBackground 10s linear infinite reverse;
     text-align: center;
     padding: 5% 0px;
 }
