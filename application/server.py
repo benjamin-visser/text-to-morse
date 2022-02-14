@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField
@@ -10,24 +10,38 @@ Bootstrap(app)
 coder = MorseCoder()
 
 
-class InputForm(FlaskForm):
-    user_input = TextAreaField()
-    encode = SubmitField("Encode")
-    undo = SubmitField("Undo")
-    decode = SubmitField("Decode")
-
-
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def home():
-    form = InputForm()
-    if form.validate_on_submit():
-        text = form.user_input.data
+
+    text_fill = request.args.get("text_fill")
+    if not text_fill:
+        text_fill = ""
+
+    return render_template("index.html", text_fill=text_fill)
+
+
+@app.route("/encode", methods=["POST"])
+def encode():
+
+    if request.method == "POST":
+        text = request.form["user-input"]
+        print(text)
         morse_code = coder.encode(text)
         print(morse_code)
 
-        return render_template("index.html", form=form, morse_code=morse_code)
+        return redirect(url_for("home", text_fill=morse_code))
 
-    return render_template("index.html", form=form)
+
+@app.route("/decode", methods=["POST"])
+def decode():
+
+    if request.method == "POST":
+        morse_code = request.form["user-input"]
+        print(morse_code)
+        text = coder.decode(morse_code)
+        print(text)
+
+        return redirect(url_for("home", text_fill=text))
 
 
 if __name__ == "__main__":
