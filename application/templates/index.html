@@ -13,29 +13,31 @@
 
 {% block body %}
 <body>
-<div>
-    <div>
-        <div>
-            <h1>Morse Coder</h1>
-        </div>
-    </div>
+<div class="title-cont">
+    <h1>Morse Coder</h1>
 </div>
-
-<div class="form-cont">
-    <div>
-        <div>
-            <form>
-                <textarea name="user-input" class="text-box" id="" cols="30" rows="10">{{ text_fill }}</textarea>
-                <br>
-                <button class="btn btn-primary btn-lg" type="submit" formaction="{{ url_for('encode') }}" formmethod="post">Encode</button>
-                <button class="btn btn-danger btn-lg" type="submit">Clear</button>
-                <button class="btn btn-primary btn-lg" type="submit" formaction="{{ url_for('decode') }}" formmethod="post">Decode</button>
-            </form>
+<div class="body-cont">
+    <form>
+        <div class="form-cont">
+            <div class="text-box">
+                <textarea name="user-input">{{ text_fill }}</textarea>
+            </div>
             <br>
-            <p>{{ morse_code }}</p>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="column">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" formaction="{{ url_for('encode') }}" formmethod="post">Encode</button>
+                    </div>
+                    <div class="column">
+                        <button class="btn btn-danger btn-lg btn-block" type="submit">Clear</button>
+                    </div>
+                    <div class="column">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" formaction="{{ url_for('decode') }}" formmethod="post">Decode</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
+    </form>
 </div>
 
 </body>
