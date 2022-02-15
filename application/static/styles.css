@@ -11,7 +11,7 @@ body {
     background-image: url("images/morse-background.png");
     background-position: 0px 0px;
     background-repeat: repeat-x;
-    animation: animatedBackground 10s linear infinite reverse;
+    /*animation: animatedBackground 10s linear infinite reverse;*/
     text-align: center;
     padding: 5% 0px;
 }
@@ -30,6 +30,19 @@ textarea {
     border-width: 0px;
 }
 
+.container-fluid {
+    padding: 0px;
+}
+
+.row {
+    margin: 0px;
+}
+
+.btn-half {
+    display: inline-block;
+    width: 45%;
+}
+
 .column {
     display: inline-block;
     width: 30%;
@@ -42,11 +55,11 @@ textarea {
 .body-cont {
     display: inline-block;
     width: 50%;
-    background-color: #21325E;
+    /*background-color: #21325E;*/
     /*background-image: linear-gradient(to bottom right, #21325E, #21325E, #21325E, #F1D00A);*/
     border-radius: 25px;
     padding-bottom: 10px;
-    box-shadow: 40px 40px 10px rgba(0, 0, 0, 0.3);
+    /*box-shadow: 40px 40px 10px rgba(0, 0, 0, 0.3);*/
 }
 
 .form-cont {
@@ -116,7 +129,7 @@ textarea {
     }
 
     .column {
-        width: 30%;
+        width: 30%
     }
 }
 
@@ -127,6 +140,6 @@ textarea {
     }
 
     .column {
-        width: 30%;
+        width: 30%
     }
 }

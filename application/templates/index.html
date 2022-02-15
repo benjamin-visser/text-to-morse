@@ -10,6 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
+<script src="https://kit.fontawesome.com/d3bf155adb.js" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='functions.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -21,7 +24,7 @@
     <form>
         <div class="form-cont">
             <div class="text-box">
-                <textarea name="user-input">{{ text_fill }}</textarea>
+                <textarea name="user-input" id="convert-text">{{ text_fill }}</textarea>
             </div>
             <br>
             <div class="container-fluid">
@@ -30,7 +33,8 @@
                         <button class="btn btn-primary btn-lg btn-block" type="submit" formaction="{{ url_for('encode') }}" formmethod="post">Encode</button>
                     </div>
                     <div class="column">
-                        <button class="btn btn-danger btn-lg btn-block" type="submit">Clear</button>
+                        <button class="btn btn-danger btn-lg btn-half" type="submit"><i class="fa-solid fa-circle-xmark"></i></button>
+                        <button class="btn btn-danger btn-lg btn-half" type="button" onclick="copy()"><i class="fas fa-copy"></i></button>
                     </div>
                     <div class="column">
                         <button class="btn btn-primary btn-lg btn-block" type="submit" formaction="{{ url_for('decode') }}" formmethod="post">Decode</button>
