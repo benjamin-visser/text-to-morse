@@ -24,7 +24,7 @@
     <form>
         <div class="form-cont">
             <div class="text-box">
-                <textarea name="user-input" id="convert-text">{{ text_fill }}</textarea>
+                <textarea name="user-input" id="convert-text">{% if text_fill %}{{ text_fill }}{% endif %}</textarea>
             </div>
             <br>
             <div class="container-fluid">
@@ -35,6 +35,7 @@
                     <div class="column">
                         <button class="btn btn-danger btn-lg btn-half" type="submit"><i class="fa-solid fa-circle-xmark"></i></button>
                         <button class="btn btn-danger btn-lg btn-half" type="button" onclick="copy()"><i class="fas fa-copy"></i></button>
+                        <button class="btn btn-danger btn-lg btn-block" type="submit" formaction="{{ url_for('undo') }}" formmethod="post">Undo</button>
                     </div>
                     <div class="column">
                         <button class="btn btn-primary btn-lg btn-block" type="submit" formaction="{{ url_for('decode') }}" formmethod="post">Decode</button>

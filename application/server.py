@@ -9,13 +9,13 @@ app.config["SECRET_KEY"] = "this is a temporary key"
 Bootstrap(app)
 coder = MorseCoder()
 
+session_history = []
+
 
 @app.route("/", methods=["GET"])
 def home():
 
     text_fill = request.args.get("text_fill")
-    if not text_fill:
-        text_fill = ""
 
     return render_template("index.html", text_fill=text_fill)
 
@@ -25,9 +25,11 @@ def encode():
 
     if request.method == "POST":
         text = request.form["user-input"]
-        print(text)
+
+        if text:
+            session_history.append(text)
+
         morse_code = coder.encode(text)
-        print(morse_code)
 
         return redirect(url_for("home", text_fill=morse_code))
 
@@ -37,11 +39,29 @@ def decode():
 
     if request.method == "POST":
         morse_code = request.form["user-input"]
-        print(morse_code)
+
+        if morse_code:
+            session_history.append(morse_code)
+
         text = coder.decode(morse_code)
-        print(text)
 
         return redirect(url_for("home", text_fill=text))
+
+
+@app.route("/clear", methods=["POST"])
+def clear():
+    if request.method == "POST":
+        return redirect(url_for("home"))
+
+
+@app.route("/undo", methods=["GET", "POST"])
+def undo():
+    if session_history:
+        text = session_history.pop()
+    else:
+        text = None
+
+    return redirect(url_for("home", text_fill=text))
 
 
 if __name__ == "__main__":
