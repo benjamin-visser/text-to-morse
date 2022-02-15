@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Monoton&display=swap" rel="stylesheet">
 
 <script src="https://kit.fontawesome.com/d3bf155adb.js" crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='functions.js') }}"></script>
@@ -17,34 +17,38 @@
 
 {% block body %}
 <body>
-<div class="title-cont">
-    <h1>Morse Coder</h1>
+<div class="background-container">
+    <div class="background-image"></div>
 </div>
-<div class="body-cont">
-    <form>
-        <div class="form-cont">
-            <div class="text-box">
-                <textarea name="user-input" id="convert-text">{% if text_fill %}{{ text_fill }}{% endif %}</textarea>
-                <div class="btn-popup">
-                        <button class="btn-custom" type="submit"><i class="fa-solid fa-circle-xmark"></i></button>
-                        <button class="btn-custom" type="button" onclick="copy()"><i class="fas fa-copy"></i></button>
-                        <button class="btn-custom" type="submit" formaction="{{ url_for('undo') }}" formmethod="post"><i class="fa-solid fa-arrow-rotate-left"></i></button>
-                </div>
-            </div>
-            <br>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="column">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit" formaction="{{ url_for('encode') }}" formmethod="post">Encode</button>
-                    </div>
-                    <div class="column">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit" formaction="{{ url_for('decode') }}" formmethod="post">Decode</button>
+<div class="content">
+    <div class="title-cont">
+        <h1>Morse Coder</h1>
+    </div>
+    <div class="body-cont">
+        <form>
+            <div class="form-cont">
+                <div class="text-box">
+                    <textarea name="user-input" id="convert-text">{% if text_fill %}{{ text_fill }}{% endif %}</textarea>
+                    <div class="btn-popup">
+                            <button class="btn-custom" type="submit"><i class="fa-solid fa-circle-xmark"></i></button>
+                            <button class="btn-custom" type="button" onclick="copy()"><i class="fas fa-copy"></i></button>
+                            <button class="btn-custom" type="submit" formaction="{{ url_for('undo') }}" formmethod="post"><i class="fa-solid fa-arrow-rotate-left"></i></button>
                     </div>
                 </div>
+                <br>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="column">
+                            <button class="btn-custom-large btn-left" type="submit" formaction="{{ url_for('encode') }}" formmethod="post">Encode</button>
+                        </div>
+                        <div class="column">
+                            <button class="btn-custom-large btn-right" type="submit" formaction="{{ url_for('decode') }}" formmethod="post">Decode</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
-
 </body>
 {% endblock %}
