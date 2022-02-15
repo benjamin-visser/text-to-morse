@@ -36,6 +36,7 @@ textarea {
 
 .row {
     margin: 0px;
+    position: relative;
 }
 
 .btn-half {
@@ -43,9 +44,33 @@ textarea {
     width: 45%;
 }
 
+.btn-custom {
+    display: inline-block;
+    background-color: transparent;
+    width: 20%;
+    border: none;
+    outline: none;
+}
+
+.btn-popup {
+    position: absolute;
+    bottom: 10px;
+    right: 0px;
+    display: none;
+    width: 100%;
+}
+
+.text-box:hover .btn-popup{
+    position: absolute;
+    bottom: 10px;
+    right: 0px;
+    display: inline-block;
+    width: 100%;
+}
+
 .column {
     display: inline-block;
-    width: 30%;
+    width: 45%;
 }
 
 .title-cont {
@@ -129,7 +154,7 @@ textarea {
     }
 
     .column {
-        width: 30%
+        width: 45%
     }
 }
 
@@ -140,6 +165,6 @@ textarea {
     }
 
     .column {
-        width: 30%
+        width: 45%
     }
 }
