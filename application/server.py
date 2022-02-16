@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField
@@ -9,13 +9,20 @@ app.config["SECRET_KEY"] = "this is a temporary key"
 Bootstrap(app)
 coder = MorseCoder()
 
-session_history = []
-
 
 @app.route("/", methods=["GET"])
 def home():
 
-    text_fill = request.args.get("text_fill")
+    try:
+        text_fill = session["history"].pop()
+        session.modified = True
+
+    except KeyError:
+        session["history"] = []
+        text_fill = None
+
+    except IndexError:
+        text_fill = None
 
     return render_template("index.html", text_fill=text_fill)
 
@@ -27,11 +34,11 @@ def encode():
         text = request.form["user-input"]
 
         if text:
-            session_history.append(text)
+            morse_code = coder.encode(text)
+            session["history"].extend([text, morse_code])
+            session.modified = True
 
-        morse_code = coder.encode(text)
-
-        return redirect(url_for("home", text_fill=morse_code))
+        return redirect(url_for("home"))
 
 
 @app.route("/decode", methods=["POST"])
@@ -41,27 +48,25 @@ def decode():
         morse_code = request.form["user-input"]
 
         if morse_code:
-            session_history.append(morse_code)
+            text = coder.decode(morse_code)
+            session["history"].extend([morse_code, text])
+            session.modified = True
 
-        text = coder.decode(morse_code)
-
-        return redirect(url_for("home", text_fill=text))
-
-
-@app.route("/clear", methods=["POST"])
-def clear():
-    if request.method == "POST":
         return redirect(url_for("home"))
 
 
-@app.route("/undo", methods=["GET", "POST"])
-def undo():
-    if session_history:
-        text = session_history.pop()
-    else:
-        text = None
+@app.route("/clear", methods=["GET"])
+def clear():
 
-    return redirect(url_for("home", text_fill=text))
+    session["history"].append("")
+    session.modified = True
+    return redirect(url_for("home"))
+
+
+@app.route("/undo", methods=["GET"])
+def undo():
+
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":

@@ -30,9 +30,9 @@
                 <div class="text-box">
                     <textarea name="user-input" id="convert-text">{% if text_fill %}{{ text_fill }}{% endif %}</textarea>
                     <div class="btn-popup">
-                            <button class="btn-custom" type="submit"><i class="fa-solid fa-circle-xmark"></i></button>
+                            <button class="btn-custom" type="submit" formaction="{{ url_for('clear') }}" formmethod="get"><i class="fa-solid fa-circle-xmark"></i></button>
                             <button class="btn-custom" type="button" onclick="copy()"><i class="fas fa-copy"></i></button>
-                            <button class="btn-custom" type="submit" formaction="{{ url_for('undo') }}" formmethod="post"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                            <button class="btn-custom" type="submit" formaction="{{ url_for('undo') }}" formmethod="get"><i class="fa-solid fa-arrow-rotate-left"></i></button>
                     </div>
                 </div>
                 <br>
