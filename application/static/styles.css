@@ -12,6 +12,14 @@ body {
     text-align: center;
 }
 
+audio::-webkit-media-controls-enclosure {
+    border-radius: 0px 25px 25px 0px;
+}
+
+.audio-cont {
+    position: relative:
+}
+
 .content {
     position: absolute;
     width: 100%;
@@ -53,6 +61,15 @@ textarea {
 .row {
     margin: 0px;
     position: relative;
+}
+
+.btn-audio-gen {
+    position: relative;
+    bottom: 22px;
+    height: 54px;
+    width: 54px;
+    border-width: 0px;
+    padding: 0px;
 }
 
 .btn-half {

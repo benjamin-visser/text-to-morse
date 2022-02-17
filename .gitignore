@@ -121,6 +121,7 @@ pip-selfcheck.json
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+application/static/audio/example.wav
 
 # Gradle:
 .idea/gradle.xml

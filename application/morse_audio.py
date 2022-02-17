@@ -1,5 +1,4 @@
 import numpy as np
-from scipy.io.wavfile import write
 
 SAMPLE_RATE = 10000
 DIT_DURATION = 0.5
@@ -28,4 +27,4 @@ def audio_generator(morse_string):
         elif char == " ":
             audio_signal = np.concatenate((audio_signal, silence))
 
-    write("example.wav", SAMPLE_RATE, audio_signal.astype(np.int16))
+    return audio_signal, SAMPLE_RATE

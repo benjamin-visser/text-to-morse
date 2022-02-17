@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_bootstrap import Bootstrap
+from scipy.io.wavfile import write
+import numpy as np
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField
 from morse_coder import MorseCoder
+from morse_audio import audio_generator
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "this is a temporary key"
@@ -14,8 +17,9 @@ coder = MorseCoder()
 def home():
 
     try:
-        text_fill = session["history"].pop()
-        session.modified = True
+        text_fill = session["history"][-1]
+        print("Session history @home:", session["history"])
+        print("Text fill:", text_fill)
 
     except KeyError:
         session["history"] = []
@@ -24,7 +28,13 @@ def home():
     except IndexError:
         text_fill = None
 
-    return render_template("index.html", text_fill=text_fill)
+    try:
+        audio_enabled = session["audio_enabled"]
+    except KeyError:
+        session["audio_enabled"] = False
+        audio_enabled = False
+
+    return render_template("index.html", text_fill=text_fill, audio_enabled=audio_enabled)
 
 
 @app.route("/encode", methods=["POST"])
@@ -35,8 +45,10 @@ def encode():
 
         if text:
             morse_code = coder.encode(text)
-            session["history"].extend([text, morse_code])
+            session["history"].append({"type": "morse", "content": morse_code})
+            session["audio_enabled"] = False
             session.modified = True
+            print("Session history after encode:", session["history"])
 
         return redirect(url_for("home"))
 
@@ -49,8 +61,10 @@ def decode():
 
         if morse_code:
             text = coder.decode(morse_code)
-            session["history"].extend([morse_code, text])
+            session["history"].append({"type": "text", "content": text})
+            session["audio_enabled"] = False
             session.modified = True
+            print("Session history after decode:", session["history"])
 
         return redirect(url_for("home"))
 
@@ -59,12 +73,36 @@ def decode():
 def clear():
 
     session["history"].append("")
+    session["audio_enabled"] = False
     session.modified = True
+
     return redirect(url_for("home"))
 
 
 @app.route("/undo", methods=["GET"])
 def undo():
+    if session["history"]:
+        session["history"].pop()
+        session["audio_enabled"] = False
+        session.modified = True
+
+    return redirect(url_for("home"))
+
+
+@app.route("/play-audio", methods=["GET"])
+def get_audio():
+
+    morse_string = session["history"][-1]["content"]
+
+    print("Morse string to write:", morse_string)
+
+    audio_signal, sample_rate = audio_generator(morse_string)
+
+    write("static/audio/example.wav", sample_rate, audio_signal.astype(np.int16))
+    print("writing file... hopefully")
+
+    session["audio_enabled"] = True
+    session.modified = True
 
     return redirect(url_for("home"))
 
