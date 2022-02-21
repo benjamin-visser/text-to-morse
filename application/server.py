@@ -1,16 +1,13 @@
+import numpy as np
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_bootstrap import Bootstrap
 from scipy.io.wavfile import write
-import numpy as np
-from flask_wtf import FlaskForm
-from wtforms import TextAreaField, SubmitField
-from morse_coder import MorseCoder
-from morse_audio import audio_generator
+
+import morse_coder
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "this is a temporary key"
 Bootstrap(app)
-coder = MorseCoder()
 
 
 @app.route("/", methods=["GET"])
@@ -18,8 +15,8 @@ def home():
 
     try:
         text_fill = session["history"][-1]
-        print("Session history @home:", session["history"])
-        print("Text fill:", text_fill)
+        # print("Session history @home:", session["history"])
+        # print("Text fill:", text_fill)
 
     except KeyError:
         session["history"] = []
@@ -44,11 +41,11 @@ def encode():
         text = request.form["user-input"]
 
         if text:
-            morse_code = coder.encode(text)
+            morse_code = morse_coder.encode(text)
             session["history"].append({"type": "morse", "content": morse_code})
             session["audio_enabled"] = False
             session.modified = True
-            print("Session history after encode:", session["history"])
+            # print("Session history after encode:", session["history"])
 
         return redirect(url_for("home"))
 
@@ -60,7 +57,7 @@ def decode():
         morse_code = request.form["user-input"]
 
         if morse_code:
-            text = coder.decode(morse_code)
+            text = morse_coder.decode(morse_code)
             session["history"].append({"type": "text", "content": text})
             session["audio_enabled"] = False
             session.modified = True
@@ -96,7 +93,7 @@ def get_audio():
 
     print("Morse string to write:", morse_string)
 
-    audio_signal, sample_rate = audio_generator(morse_string)
+    audio_signal, sample_rate = morse_coder.generate_audio(morse_string)
 
     write("static/audio/example.wav", sample_rate, audio_signal.astype(np.int16))
     print("writing file... hopefully")

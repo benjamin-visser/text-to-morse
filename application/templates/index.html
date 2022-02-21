@@ -38,12 +38,24 @@
                 <br>
                 <div class="container-fluid">
                     <div class="row">
+                        {% if text_fill['type'] == 'morse' %}
+                        <div class="column">
+                            <button class="btn-custom-large btn-left" type="submit" formaction="{{ url_for('encode') }}" formmethod="post" disabled>Encode</button>
+                        </div>
+                        {% else %}
                         <div class="column">
                             <button class="btn-custom-large btn-left" type="submit" formaction="{{ url_for('encode') }}" formmethod="post">Encode</button>
                         </div>
+                        {% endif %}
+                        {% if text_fill['type'] == 'text' %}
+                        <div class="column">
+                            <button class="btn-custom-large btn-right" type="submit" formaction="{{ url_for('decode') }}" formmethod="post" disabled>Decode</button>
+                        </div>
+                        {% else %}
                         <div class="column">
                             <button class="btn-custom-large btn-right" type="submit" formaction="{{ url_for('decode') }}" formmethod="post">Decode</button>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
