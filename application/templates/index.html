@@ -9,76 +9,81 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Monoton&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Monoton&display=swap"
+      rel="stylesheet">
 
-<script src="https://kit.fontawesome.com/d3bf155adb.js" crossorigin="anonymous"></script>
-<script src="{{ url_for('static', filename='functions.js') }}"></script>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/d3bf155adb.js"></script>
 {% endblock %}
 
 {% block body %}
 <body>
-<div class="background-container">
-    <div class="background-image"></div>
+<div class="bg-img-container">
+    <div class="bg-img"></div>
 </div>
-<div class="content">
-    <div class="title-cont">
-        <h1>Morse Coder</h1>
-    </div>
-    <div class="body-cont">
-        <form>
-            <div class="form-cont">
-                <div class="text-box">
-                    <textarea name="user-input" id="convert-text">{% if text_fill %}{{ text_fill['content'] }}{% endif %}</textarea>
-                    <div class="btn-popup">
-                            <button class="btn-custom" type="submit" formaction="{{ url_for('clear') }}" formmethod="get"><i class="fa-solid fa-circle-xmark"></i></button>
-                            <button class="btn-custom" type="button" onclick="copy()"><i class="fas fa-copy"></i></button>
-                            <button class="btn-custom" type="submit" formaction="{{ url_for('undo') }}" formmethod="get"><i class="fa-solid fa-arrow-rotate-left"></i></button>
-                    </div>
-                </div>
-                <br>
-                <div class="container-fluid">
-                    <div class="row">
-                        {% if text_fill['type'] == 'morse' %}
-                        <div class="column">
-                            <button class="btn-custom-large btn-left" type="submit" formaction="{{ url_for('encode') }}" formmethod="post" disabled>Encode</button>
-                        </div>
-                        {% else %}
-                        <div class="column">
-                            <button class="btn-custom-large btn-left" type="submit" formaction="{{ url_for('encode') }}" formmethod="post">Encode</button>
-                        </div>
-                        {% endif %}
-                        {% if text_fill['type'] == 'text' %}
-                        <div class="column">
-                            <button class="btn-custom-large btn-right" type="submit" formaction="{{ url_for('decode') }}" formmethod="post" disabled>Decode</button>
-                        </div>
-                        {% else %}
-                        <div class="column">
-                            <button class="btn-custom-large btn-right" type="submit" formaction="{{ url_for('decode') }}" formmethod="post">Decode</button>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </form>
-        <div class="audio-cont">
-            {% if text_fill['type'] == 'morse' %}
-                <a href="{{ url_for('get_audio') }}">
-                    <button class="btn-left btn-audio-gen">
-                        <i class="fa-solid fa-circle-plus"></i>
-                    </button>
-                </a>
-            {% else %}
-                <button class="btn-left btn-audio-gen">
-                    <i class="fa-solid fa-circle-plus"></i>
+<main>
+    <h1>Morse Coder</h1>
+    <form>
+        <div class="text-box">
+            <textarea name="user-input"
+                      id="convert-text">{% if text_fill %}{{ text_fill['content'] }}{% endif %}</textarea>
+            <div class="edit-button-group">
+                <button class="edit-button"
+                        type="submit"
+                        formaction="{{ url_for('clear') }}"
+                        formmethod="get">
+                    <i class="fa-solid fa-circle-xmark"></i>
                 </button>
-            {% endif %}
-            {% if audio_enabled %}
-                <audio controls src="{{ url_for('static', filename='audio/example.wav') }}"></audio>
-            {% else %}
-                <audio controls src=""></audio>
-            {% endif %}
+                <button class="edit-button"
+                        type="button"
+                        onclick="copy()">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button class="edit-button"
+                        type="submit"
+                        formaction="{{ url_for('undo') }}"
+                        formmethod="get">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                </button>
+            </div>
         </div>
+        <button class="main-button left-button"
+                type="submit"
+                formaction="{{ url_for('encode') }}"
+                formmethod="post"
+                {% if text_fill['type'] == 'morse' %}disabled{% endif %}>
+        Encode
+        </button>
+        <button class="main-button right-button"
+                type="submit"
+                formaction="{{ url_for('decode') }}"
+                formmethod="post"
+                {% if text_fill['type'] == 'text' %}disabled{% endif %}>
+        Decode
+        </button>
+    </form>
+    <div class="audio-container">
+        {% if text_fill['type'] == 'morse' %}
+        <a href="{{ url_for('get_audio') }}">
+            <button class="left-button load-audio-button">
+                <i class="fa-solid fa-circle-plus"></i>
+            </button>
+        </a>
+        {% else %}
+        <button class="left-button load-audio-button">
+            <i class="fa-solid fa-circle-plus"></i>
+        </button>
+        {% endif %}
+        <audio controls>
+            {% if audio_enabled %}
+            <source src="{{ url_for('static', filename='audio/example.wav') }}"
+                    type="audio/wav">
+            Your browser does not support the audio element.
+            {% else %}
+            <source src="">
+            {% endif %}
+        </audio>
     </div>
-</div>
+</main>
+<script src="{{ url_for('static', filename='functions.js') }}"></script>
 </body>
 {% endblock %}

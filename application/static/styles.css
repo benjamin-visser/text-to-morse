@@ -1,3 +1,6 @@
+body {
+    text-align: center;
+}
 
 @keyframes slide {
   0% {
@@ -8,30 +11,11 @@
   }
 }
 
-body {
-    text-align: center;
-}
-
-audio::-webkit-media-controls-enclosure {
-    border-radius: 0px 25px 25px 0px;
-}
-
-.audio-cont {
-    position: relative:
-}
-
-.content {
-    position: absolute;
-    width: 100%;
-    top: 40px;
-    right: 0px;
-}
-
-.background-container {
+.bg-img-container {
     overflow: hidden;
 }
 
-.background-image {
+.bg-img {
     background-image: url("images/morse-background3.png");
     background-repeat: repeat-x;
     position: 0 0;
@@ -40,118 +24,25 @@ audio::-webkit-media-controls-enclosure {
     animation: slide 30s linear infinite;
 }
 
+main {
+    position: absolute;
+    width: 100%;
+    top: 40px;
+    right: 0px;
+}
+
 h1 {
     color: #00B4D8;
     font-family: 'Monoton', cursive;
     font-size: 100px;
     margin: 3% auto;
-}
-
-textarea {
-    background-color: #F0F0F0;
-    width: 100%;
-    height: 250px;
-    border-width: 0px;
-}
-
-.container-fluid {
-    padding: 0px;
-}
-
-.row {
-    margin: 0px;
-    position: relative;
-}
-
-.btn-audio-gen {
-    position: relative;
-    bottom: 22px;
-    height: 54px;
-    width: 54px;
-    border-width: 0px;
-    padding: 0px;
-}
-
-.btn-half {
-    display: inline-block;
-    width: 45%;
-}
-
-.btn-custom {
-    display: inline-block;
-    background-color: transparent;
-    width: 20%;
-    border: none;
-    outline: none;
-}
-
-.btn-custom-large {
-    display: inline-block;
-    font-size: 32px;
-    font-family: 'Lobster', cursive;
-    width: 100%;
-    background-color: transparent;
-    border-color: #F0F0F0;
-    color: #F0F0F0;
-}
-
-.btn-left {
-    border-radius: 25px 0px 0px 25px;
-}
-
-.btn-right {
-    border-radius: 0px 25px 25px 0px;
-}
-
-.btn-custom-large:hover {
-    border-color: #F0F0F0;
-    color: #F0F0F0;
-    background-color: #54BAB9;
-    background-image: linear-gradient(to bottom right, #00B4D8, #FF5C8D);
-
-}
-
-.btn-popup {
-    position: absolute;
-    bottom: 15px;
-    right: 0px;
-    display: none;
-    width: 100%;
-}
-
-.text-box:hover .btn-popup{
-    position: absolute;
-    bottom: 15px;
-    right: 0px;
-    display: inline-block;
-    width: 100%;
-}
-
-.column {
-    display: inline-block;
-    width: 45%;
-}
-
-.title-cont {
     padding: 0 10px 0;
 }
 
-.body-cont {
+form {
     display: inline-block;
-    width: 50%;
-    /*background-color: #21325E;*/
-    /*background-image: linear-gradient(to bottom right, #21325E, #21325E, #21325E, #F1D00A);*/
-    border-radius: 25px;
+    width: 30%;
     padding-bottom: 10px;
-    /*box-shadow: 40px 40px 10px rgba(0, 0, 0, 0.3);*/
-}
-
-.form-cont {
-    display: inline-block;
-    width: 50%;
-    margin-bottom: 20px;
-    padding: 20px;
-    border-radius: 25px;
 }
 
 .text-box {
@@ -164,6 +55,76 @@ textarea {
     border-width: 0;
     margin-bottom: 10px;
     box-shadow: 40px 40px 10px rgba(0, 0, 0, 0.3);
+}
+
+textarea {
+    background-color: inherit;
+    width: 100%;
+    height: 250px;
+    border-width: 0px;
+}
+
+.edit-button-group {
+    display: none;
+    position: absolute;
+    bottom: 15px;
+    right: 0px;
+    width: 100%;
+}
+
+.edit-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 20%;
+}
+
+.text-box:hover .edit-button-group{
+    display: inline-block;
+}
+
+.edit-button:hover {
+    color: red;
+}
+
+.main-button {
+    position: relative;
+    z-index: 0;
+    font-size: 32px;
+    font-family: 'Lobster', cursive;
+    width: 45%;
+    background-color: transparent;
+    border-color: #F0F0F0;
+    color: #F0F0F0;
+}
+
+.left-button {
+    border-radius: 25px 0px 0px 25px;
+}
+
+.right-button {
+    border-radius: 0px 25px 25px 0px;
+}
+
+.main-button:hover {
+    border-color: #F0F0F0;
+    color: #F0F0F0;
+    background-color: #54BAB9;
+    background-image: linear-gradient(to bottom right, #00B4D8, #FF5C8D);
+
+}
+
+audio::-webkit-media-controls-enclosure {
+    border-radius: 0px 25px 25px 0px;
+}
+
+.load-audio-button {
+    position: relative;
+    bottom: 22px;
+    height: 54px;
+    width: 54px;
+    border-width: 0px;
+    padding: 0px;
 }
 
 /* Extra small devices (phones, 600px and down) */

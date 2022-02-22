@@ -37,36 +37,34 @@ def home():
 @app.route("/encode", methods=["POST"])
 def encode():
 
-    if request.method == "POST":
-        text = request.form["user-input"]
+    text = request.form["user-input"]
 
-        if text:
-            morse_code = morse_coder.encode(text)
-            session["history"].append({"type": "morse", "content": morse_code})
-            session["audio_enabled"] = False
-            session.modified = True
-            # print("Session history after encode:", session["history"])
+    if text:
+        morse_code = morse_coder.encode(text)
+        session["history"].append({"type": "morse", "content": morse_code})
+        session["audio_enabled"] = False
+        session.modified = True
+        # print("Session history after encode:", session["history"])
 
-        return redirect(url_for("home"))
+    return redirect(url_for("home"))
 
 
 @app.route("/decode", methods=["POST"])
 def decode():
 
-    if request.method == "POST":
-        morse_code = request.form["user-input"]
+    morse_code = request.form["user-input"]
 
-        if morse_code:
-            text = morse_coder.decode(morse_code)
-            session["history"].append({"type": "text", "content": text})
-            session["audio_enabled"] = False
-            session.modified = True
-            print("Session history after decode:", session["history"])
+    if morse_code:
+        text = morse_coder.decode(morse_code)
+        session["history"].append({"type": "text", "content": text})
+        session["audio_enabled"] = False
+        session.modified = True
+        # print("Session history after decode:", session["history"])
 
-        return redirect(url_for("home"))
+    return redirect(url_for("home"))
 
 
-@app.route("/clear", methods=["GET"])
+@app.route("/clear")
 def clear():
 
     session["history"].append("")
@@ -76,8 +74,9 @@ def clear():
     return redirect(url_for("home"))
 
 
-@app.route("/undo", methods=["GET"])
+@app.route("/undo")
 def undo():
+
     if session["history"]:
         session["history"].pop()
         session["audio_enabled"] = False
@@ -91,12 +90,12 @@ def get_audio():
 
     morse_string = session["history"][-1]["content"]
 
-    print("Morse string to write:", morse_string)
+    # print("Morse string to write:", morse_string)
 
     audio_signal, sample_rate = morse_coder.generate_audio(morse_string)
 
     write("static/audio/example.wav", sample_rate, audio_signal.astype(np.int16))
-    print("writing file... hopefully")
+    # print("writing file... hopefully")
 
     session["audio_enabled"] = True
     session.modified = True
