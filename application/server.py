@@ -2,7 +2,6 @@ import numpy as np
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_bootstrap import Bootstrap
 from scipy.io.wavfile import write
-
 import morse_coder
 
 app = Flask(__name__)
@@ -15,8 +14,6 @@ def home():
 
     try:
         text_fill = session["history"][-1]
-        # print("Session history @home:", session["history"])
-        # print("Text fill:", text_fill)
 
     except KeyError:
         session["history"] = []
@@ -31,7 +28,9 @@ def home():
         session["audio_enabled"] = False
         audio_enabled = False
 
-    return render_template("index.html", text_fill=text_fill, audio_enabled=audio_enabled)
+    return render_template("index.html",
+                           text_fill=text_fill,
+                           audio_enabled=audio_enabled)
 
 
 @app.route("/encode", methods=["POST"])
@@ -44,7 +43,6 @@ def encode():
         session["history"].append({"type": "morse", "content": morse_code})
         session["audio_enabled"] = False
         session.modified = True
-        # print("Session history after encode:", session["history"])
 
     return redirect(url_for("home"))
 
@@ -59,7 +57,6 @@ def decode():
         session["history"].append({"type": "text", "content": text})
         session["audio_enabled"] = False
         session.modified = True
-        # print("Session history after decode:", session["history"])
 
     return redirect(url_for("home"))
 
@@ -89,13 +86,11 @@ def undo():
 def get_audio():
 
     morse_string = session["history"][-1]["content"]
-
-    # print("Morse string to write:", morse_string)
-
     audio_signal, sample_rate = morse_coder.generate_audio(morse_string)
 
-    write("static/audio/example.wav", sample_rate, audio_signal.astype(np.int16))
-    # print("writing file... hopefully")
+    write("static/audio/example.wav",
+          sample_rate,
+          audio_signal.astype(np.int16))
 
     session["audio_enabled"] = True
     session.modified = True
